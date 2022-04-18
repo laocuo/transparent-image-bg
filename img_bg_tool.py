@@ -1,6 +1,6 @@
 '''
 一键转换文件夹下全部PNG图片的背景为透明
-authero:zhaocheng
+author:zhaocheng
 '''
 
 import os
