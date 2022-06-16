@@ -1,0 +1,1 @@
+pyinstaller -Fw -i convertor.ico -n ImgBgTool tool.py img_bg_tool.py convertor_icon.py

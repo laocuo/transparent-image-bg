@@ -13,6 +13,9 @@ MODE = 2
 # 像素阈值(1 - 255)
 THRESHOLD = 220
 
+# 透明图片前缀
+PREFIX = 'alpha_'
+
 def convertor_file_1(file):
     print('convertor_file:' + file)
     img = Image.open(file)
@@ -28,7 +31,7 @@ def convertor_file_1(file):
             a = pixel[3]
             if is_white_point(r, g ,b ,a):
                 pixel_data[w, h] = (255, 255, 255, 0)
-    img.save(os.path.join(os.path.dirname(file), 'alpha_' + os.path.basename(file)))
+    img.save(os.path.join(os.path.dirname(file), PREFIX + os.path.basename(file)))
 
 def convertor_file_2(file):
     print('convertor_file:' + file)
@@ -82,7 +85,7 @@ def convertor_file_2(file):
                     pixel_data[w, index] = (255, 255, 255, 0)
                 else:
                     break
-    img.save(os.path.join(os.path.dirname(file), 'alpha_' + os.path.basename(file)))
+    img.save(os.path.join(os.path.dirname(file), PREFIX + os.path.basename(file)))
 
 def is_white_point(r, g, b, a):
     if r > THRESHOLD and g > THRESHOLD and b > THRESHOLD:
@@ -98,7 +101,7 @@ def convertor_dir(dir):
             file = os.path.join(dir, files[i])
             if os.path.isfile(file):
                 if file[-3:] == 'png':
-                    if os.path.basename(file).startswith('alpha_'):
+                    if os.path.basename(file).startswith(PREFIX):
                         os.remove(file)
         files = os.listdir(dir)
         for i in range(0, len(files)):
@@ -113,6 +116,11 @@ def convertor_dir(dir):
                 convertor_dir(file)
     else:
         print('wrong:input is not a dir')
+
+def convertor(dir, mode, threshold):
+    MODE = mode
+    THRESHOLD = threshold
+    convertor_dir(dir)
 
 if __name__ == "__main__":
     if len(sys.argv) <= 1:
