@@ -8,7 +8,7 @@ import sys
 from PIL import Image
 
 # 模式1:全部白色像素转换成透明 模式2:外围白色像素转换成透明
-MODE = 2
+MODE = 1
 
 # 像素阈值(1 - 255)
 THRESHOLD = 220
@@ -100,14 +100,14 @@ def convertor_dir(dir):
         for i in range(0, len(files)):
             file = os.path.join(dir, files[i])
             if os.path.isfile(file):
-                if file[-3:] == 'png':
+                if file[-3:].lower() == 'png':
                     if os.path.basename(file).startswith(PREFIX):
                         os.remove(file)
         files = os.listdir(dir)
         for i in range(0, len(files)):
             file = os.path.join(dir, files[i])
             if os.path.isfile(file):
-                if file[-3:] == 'png':
+                if file[-3:].lower() == 'png':
                     if MODE == 1:
                         convertor_file_1(file)
                     elif MODE == 2:
